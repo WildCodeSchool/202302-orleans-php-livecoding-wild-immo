@@ -1,6 +1,9 @@
 header {
+    --header-height: 50vh;
     background-image: url('../images/header.jpg');
-    height: 500px;
+    height: var(--header-height);
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+    background-position: center, var(--header-height);
 }
