@@ -3,8 +3,15 @@
 {% block title %}Home
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
 {% block body %}
-	<h1 class="text-primary">
-		Wild immo
-	</h1>
+	<header class="d-flex justify-content-center align-items-center">
+		<h1 class="text-primary">
+			Bienvenue sur Wild immo !
+		</h1>
+	</header>
 {% endblock %}
