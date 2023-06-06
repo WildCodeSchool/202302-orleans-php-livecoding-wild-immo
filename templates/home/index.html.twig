@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('home') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
 {% endblock %}
 
 {% block body %}
@@ -14,4 +14,23 @@
 			Bienvenue sur Wild immo !
 		</h1>
 	</header>
+	<main class="container">
+		<section>
+			<h2 class="text-primary mt-5 mb-3">Nos guides</h2>
+			<div class="row gx-5">
+				{% for guide in guides %}
+				{# xs sm md lg xl xxl #}
+					<div class="col-sm-6 col-md-4 ">
+						<div class="card border border-0">
+							<img class="rounded-5" src="{{ guide.image ?? asset('build/images/guide_placeholder.jpg' )}}" class="card-img-top" alt="">
+							<div class="card-body">
+								<h2 class="card-title mt-1 me-md-5 fs-5">{{ guide.title }}</h2>
+								<p class="text-secondary">{{ guide.createdAt|date('d/m/Y') }}</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	</main>
 {% endblock %}
