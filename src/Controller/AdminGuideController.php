@@ -21,7 +21,7 @@ class AdminGuideController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_guide_new', methods: ['GET', 'POST'])]
+    #[Route('/creer', name: 'app_admin_guide_new', methods: ['GET', 'POST'])]
     public function new(Request $request, GuideRepository $guideRepository): Response
     {
         $guide = new Guide();
@@ -48,7 +48,7 @@ class AdminGuideController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_guide_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/editer', name: 'app_admin_guide_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Guide $guide, GuideRepository $guideRepository): Response
     {
         $form = $this->createForm(GuideType::class, $guide);
