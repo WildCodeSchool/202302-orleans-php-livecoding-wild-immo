@@ -1,0 +1,44 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title %}Guide index
+{% endblock %}
+
+{% block body %}
+	<main class="container-fluid">
+		<h1 class="text-primary">Guide index</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Image</th>
+					<th>Date</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for guide in guides %}
+					<tr>
+						<td>{{ guide.title }}</td>
+						<td>
+							<img class="rounded-2" src="{{ guide.image ?? asset('build/images/guide_placeholder.jpg' )}}" class="card-img-top" alt="">
+						</td>
+						<td>{{ guide.createdAt ? guide.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>
+							<a class="btn btn-outline-primary" href="{{ path('app_admin_guide_edit', {'id': guide.id}) }}">
+								{% include 'icons/pencil.svg' %}
+								Éditer
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a class="btn btn-primary" href="{{ path('app_admin_guide_new') }}">Créer un guide</a>
+	</main>
+{% endblock %}
