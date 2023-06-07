@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminLayout.html.twig' %}
 
-{% block title %}New Guide{% endblock %}
+{% block title %}New Guide
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Guide</h1>
+	<main class="container">
+		<h1>Créer un guide</h1>
 
-    {{ include('admin_guide/_form.html.twig') }}
+		{{ include('admin_guide/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_guide_index') }}">back to list</a>
+		<a class="mt-5 btn btn-outline-secondary href="{{ path('app_admin_guide_index') }}">Retour</a>
+	</main>
 {% endblock %}

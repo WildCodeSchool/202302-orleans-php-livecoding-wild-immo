@@ -1,3 +1,10 @@
+@import "variables";
+
+h1 {
+    color: $primary;
+    margin-block-start: 1rem;
+}
+
 table img {
     width: 50px;
 }
