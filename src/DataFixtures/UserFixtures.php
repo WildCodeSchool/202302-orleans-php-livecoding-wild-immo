@@ -20,7 +20,16 @@ class UserFixtures extends Fixture
         $admin->setFirstName('Bilbo');
         $admin->setLastName('Baggins');
         $admin->setPassword($this->userPasswordHasher->hashPassword($admin, 'azerty'));
+        $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
+        $manager->flush();
+
+        $user = new User();
+        $user->setEmail('user@wildimmo.com');
+        $user->setFirstName('Frodo');
+        $user->setLastName('Baggins');
+        $user->setPassword($this->userPasswordHasher->hashPassword($user, 'sauron'));
+        $manager->persist($user);
         $manager->flush();
     }
 }
