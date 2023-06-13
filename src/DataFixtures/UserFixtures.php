@@ -17,6 +17,8 @@ class UserFixtures extends Fixture
     {
         $admin = new User();
         $admin->setEmail('admin@wildimmo.com');
+        $admin->setFirstName('Bilbo');
+        $admin->setLastName('Baggins');
         $admin->setPassword($this->userPasswordHasher->hashPassword($admin, 'azerty'));
         $manager->persist($admin);
         $manager->flush();
