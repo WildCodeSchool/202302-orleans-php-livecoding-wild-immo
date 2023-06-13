@@ -17,8 +17,21 @@
 				</li>
 				<li class="nav-item">
 					{% if app.user %}
-						Bienvenue {{ app.user.firstName }} !
-						<a class="btn btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+						Bienvenue
+						{{ app.user.firstName }}
+						!
+
+						<li class="nav-item dropdown">
+
+							<a class="nav-link dropdown-toggle" href="{{ path('app_logout') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Déconnexion
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{{ path('profile') }}">Profile</a>
+								</li>
+							</ul>
+						</li>
 					{% else %}
 						<a class="btn btn-light" href="{{ path('app_login') }}">Connexion</a>
 					{% endif %}
