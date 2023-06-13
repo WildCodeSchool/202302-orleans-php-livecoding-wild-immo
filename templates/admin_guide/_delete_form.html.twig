@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_admin_guide_delete', {'id': guide.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce gjuide ?');">
+<form class="mt-2" method="post" action="{{ path('app_admin_guide_delete', {'id': guide.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce gjuide ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ guide.id) }}">
     <button class="btn btn-danger">Supprimer</button>
 </form>
