@@ -7,6 +7,7 @@ use Faker\Factory;
 use App\Entity\Guide;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Filesystem\Filesystem;
 
 class EstateFixtures extends Fixture
 {
@@ -21,16 +22,28 @@ class EstateFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $filesystem = new Filesystem();
+        $filesystem->remove('uploads/estate');
+        $filesystem->mkdir('uploads/estate');
+
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < self::ESTATE_NUMBER; $i++) {
             $estate = new Estate();
+            $image = 'house' . $i . '.jpg';
+
+            copy(
+                'https://loremflickr.com/400/400/house',
+                'public/uploads/estate/' . $image
+            );
+
             $estate
                 ->setTitle($faker->randomElement(self::TITLES))
                 ->setDescription($faker->text())
                 ->setSurface($faker->numberBetween(10, 250))
                 ->setAddress($faker->address())
                 ->setCity($faker->city())
-                ->setPrice($faker->numberBetween(10000, 2500000));
+                ->setPrice($faker->numberBetween(10000, 2500000))
+                ->setImage($image);
             $manager->persist($estate);
         }
 
