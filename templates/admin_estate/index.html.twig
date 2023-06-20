@@ -1,47 +1,48 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminLayout.html.twig' %}
 
-{% block title %}Estate index{% endblock %}
+{% block title %}{{ parent()}} | Liste des biens
+{% endblock %}
 
 {% block body %}
-    <h1>Estate index</h1>
+	<main class="container-fluid my-3">
+		<h1>Liste des biens</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Surface</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for estate in estates %}
-            <tr>
-                <td>{{ estate.id }}</td>
-                <td>{{ estate.title }}</td>
-                <td>{{ estate.price }}</td>
-                <td>{{ estate.surface }}</td>
-                <td>{{ estate.address }}</td>
-                <td>{{ estate.city }}</td>
-                <td>{{ estate.description }}</td>
-                <td>{{ estate.image }}</td>
-                <td>
-                    <a href="{{ path('app_admin_estate_show', {'id': estate.id}) }}">show</a>
-                    <a href="{{ path('app_admin_estate_edit', {'id': estate.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<table class="table table-hover table-striped ">
+			<thead>
+				<tr>
+					<th>Image</th>
+					<th>Titre</th>
+					<th>Prix €</th>
+					<th>Surface m<sup>2</sup>
+					</th>
+					<th>Adresse</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for estate in estates %}
+					<tr class="align-middle fw-light">
+						<td><img class="img-fluid rounded" src="{{ vich_uploader_asset(estate) }}" alt="{{ estate.title }}"></td>
+						<td class="fw-normal">{{ estate.title }}</td>
+						<td>{{ estate.price }}</td>
+						<td>{{ estate.surface }}</td>
+						<td>{{ estate.address }},
+							{{ estate.city }}</td>
+						<td>
+							<a class="btn btn-sm btn-outline-primary" href="{{ path('app_admin_estate_edit', {'id': estate.id}) }}">
+								{% include 'icons/pencil.svg' %}
+								Modifier
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="9">Pas de biens</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <a href="{{ path('app_admin_estate_new') }}">Create new</a>
+		<a class="btn btn-primary" href="{{ path('app_admin_estate_new') }}">Créer un nouveau bien</a>
+	</main>
 {% endblock %}
