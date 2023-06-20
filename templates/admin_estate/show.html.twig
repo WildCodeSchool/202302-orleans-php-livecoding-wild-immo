@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Estate{% endblock %}
+
+{% block body %}
+    <h1>Estate</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ estate.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ estate.title }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ estate.price }}</td>
+            </tr>
+            <tr>
+                <th>Surface</th>
+                <td>{{ estate.surface }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ estate.address }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ estate.city }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ estate.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ estate.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_estate_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_estate_edit', {'id': estate.id}) }}">edit</a>
+
+    {{ include('admin_estate/_delete_form.html.twig') }}
+{% endblock %}

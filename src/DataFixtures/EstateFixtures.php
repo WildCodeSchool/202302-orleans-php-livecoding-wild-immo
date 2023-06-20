@@ -23,8 +23,8 @@ class EstateFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $filesystem = new Filesystem();
-        $filesystem->remove('uploads/estate');
-        $filesystem->mkdir('uploads/estate');
+        $filesystem->remove('/public/uploads/estate');
+        $filesystem->mkdir('/public/uploads/estate');
 
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < self::ESTATE_NUMBER; $i++) {

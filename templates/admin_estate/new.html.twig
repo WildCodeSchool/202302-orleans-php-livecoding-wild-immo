@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Estate{% endblock %}
+
+{% block body %}
+    <h1>Create new Estate</h1>
+    <main class="container">
+     {{ include('admin_estate/_form.html.twig') }}
+    </main>
+
+    <a href="{{ path('app_admin_estate_index') }}">back to list</a>
+{% endblock %}
