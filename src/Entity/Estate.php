@@ -46,6 +46,9 @@ class Estate
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'estates')]
+    private ?EstateCategory $estateCategory = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -149,5 +152,17 @@ class Estate
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function getEstateCategory(): ?EstateCategory
+    {
+        return $this->estateCategory;
+    }
+
+    public function setEstateCategory(?EstateCategory $estateCategory): self
+    {
+        $this->estateCategory = $estateCategory;
+
+        return $this;
     }
 }

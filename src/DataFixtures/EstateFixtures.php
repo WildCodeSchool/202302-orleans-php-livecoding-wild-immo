@@ -11,7 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class EstateFixtures extends Fixture
 {
-    public const ESTATE_NUMBER = 50;
+    public const ESTATE_NUMBER = 10;
     public const TITLES = [
         'Maison de ville',
         'Longère dans les bois',
@@ -22,10 +22,6 @@ class EstateFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $filesystem = new Filesystem();
-        $filesystem->remove('/public/uploads/estate');
-        $filesystem->mkdir('/public/uploads/estate');
-
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < self::ESTATE_NUMBER; $i++) {
             $estate = new Estate();
