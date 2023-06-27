@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\EstateSearch;
 use App\Form\EstateSearchType;
 use App\Repository\EstateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,13 +15,12 @@ class EstateController extends AbstractController
     #[Route('/biens', name: 'estate_index')]
     public function index(EstateRepository $estateRepository, Request $request): Response
     {
-        $form = $this->createForm(EstateSearchType::class);
+        $estateSearch = new EstateSearch();
+        $form = $this->createForm(EstateSearchType::class, $estateSearch);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-
-            $estates = $estateRepository->searchEstate($data['search']);
+            $estates = $estateRepository->searchEstate($estateSearch);
         } else {
             $estates = $estateRepository->findAll();
         }

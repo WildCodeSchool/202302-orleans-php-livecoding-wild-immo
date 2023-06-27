@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Estate;
+use App\Entity\EstateSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,12 +40,23 @@ class EstateRepository extends ServiceEntityRepository
         }
     }
 
-    public function searchEstate(?string $search): array
+    public function searchEstate(EstateSearch $estateSearch): array
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.title LIKE :search')
-            ->setParameter('search', '%' . $search . '%')
-            ->getQuery()
+        $queryBuilder = $this->createQueryBuilder('e');
+        if ($estateSearch->getSearch()) {
+            $queryBuilder->andWhere('e.title LIKE :search')
+                ->setParameter('search', '%' . $estateSearch->getSearch() . '%');
+        }
+        if ($estateSearch->getMinPrice()) {
+            $queryBuilder->andWhere('e.price > :minPrice')
+                ->setParameter('minPrice', $estateSearch->getMinPrice());
+        }
+        if ($estateSearch->getMaxPrice()) {
+            $queryBuilder->andWhere('e.price < :maxPrice')
+                ->setParameter('maxPrice', $estateSearch->getMaxPrice());
+        }
+
+        return $queryBuilder->getQuery()
             ->getResult();
     }
 
