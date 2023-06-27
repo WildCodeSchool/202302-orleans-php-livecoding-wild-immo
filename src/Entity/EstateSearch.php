@@ -15,6 +15,8 @@ class EstateSearch
     #[Assert\Positive()]
     private ?int $maxPrice = null;
 
+    private ?EstateCategory $estateCategory = null;
+
     /**
      * Get the value of search
      */
@@ -65,6 +67,24 @@ class EstateSearch
     public function setMaxPrice(?int $maxPrice): self
     {
         $this->maxPrice = $maxPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of estateCategory
+     */
+    public function getEstateCategory(): ?EstateCategory
+    {
+        return $this->estateCategory;
+    }
+
+    /**
+     * Set the value of estateCategory
+     */
+    public function setEstateCategory(?EstateCategory $estateCategory): self
+    {
+        $this->estateCategory = $estateCategory;
 
         return $this;
     }

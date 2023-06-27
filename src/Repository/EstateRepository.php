@@ -55,6 +55,10 @@ class EstateRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('e.price < :maxPrice')
                 ->setParameter('maxPrice', $estateSearch->getMaxPrice());
         }
+        if ($estateSearch->getEstateCategory()) {
+            $queryBuilder->andWhere('e.estateCategory = :estateCategory')
+            ->setParameter('estateCategory', $estateSearch->getEstateCategory());
+        }
 
         return $queryBuilder->getQuery()
             ->getResult();
