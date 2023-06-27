@@ -2,14 +2,15 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Estate;
 use Faker\Factory;
 use App\Entity\Guide;
+use App\Entity\Estate;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Filesystem\Filesystem;
+use App\DataFixtures\EstateCategoryFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class EstateFixtures extends Fixture
+class EstateFixtures extends Fixture implements DependentFixtureInterface
 {
     public const ESTATE_NUMBER = 10;
     public const TITLES = [
@@ -32,6 +33,7 @@ class EstateFixtures extends Fixture
                 'public/uploads/estate/' . $image
             );
 
+            $estateCategory = $this->getReference('estate_' . rand(0, count(EstateCategoryFixtures::CATEGORIES) - 1));
             $estate
                 ->setTitle($faker->randomElement(self::TITLES))
                 ->setDescription($faker->text())
@@ -39,10 +41,18 @@ class EstateFixtures extends Fixture
                 ->setAddress($faker->address())
                 ->setCity($faker->city())
                 ->setPrice($faker->numberBetween(10000, 2500000))
-                ->setImage($image);
+                ->setImage($image)
+                ->setEstateCategory($estateCategory);
             $manager->persist($estate);
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            EstateCategoryFixtures::class,
+        ];
     }
 }

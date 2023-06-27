@@ -16,7 +16,7 @@
 						<div class="col-md-4">
 							<div class="card-body">
 								<h2 class="card-title fw-bold fs-3">{{ estate.title|u.truncate(40, '...') }}</h2>
-								<p class="card-text fs-5">{{ estate.surface }}m<sup>2</sup>
+								<p class="card-text fs-5">{{ estate.estateCategory.name }} - {{ estate.surface }}m<sup>2</sup>
 								</p>
 								<p class="card-text fs-5 text-secondary">{{ estate.city }}</p>
 								<p class="card-text fw-light">{{ estate.description }}</p>
