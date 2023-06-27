@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg bg-primary navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg bg-secondary navbar-dark fixed-top">
 	<div class="container-fluid ">
 		<a class="navbar-brand" href="{{ path('home' )}}">
 			<img src="{{ asset('build/images/logo.png') }}" alt="">
-			Wild immo
+			Wild immo Admin
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -10,10 +10,10 @@
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{{ path('estate_index' )}}">Rechercher un bien</a>
+					<a class="nav-link text-light" href="{{ path('app_admin_estate_index' )}}">Biens</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="#">Vendre un bien</a>
+					<a class="nav-link text-light" href="{{ path('app_admin_guide_index' )}}">Guide</a>
 				</li>
 				{% if app.user %}
 					<li class="nav-item dropdown">
