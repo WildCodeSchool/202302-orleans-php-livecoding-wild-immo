@@ -49,6 +49,12 @@ class Estate
     #[ORM\ManyToOne(inversedBy: 'estates')]
     private ?EstateCategory $estateCategory = null;
 
+    #[ORM\Column]
+    private ?float $latitude = null;
+
+    #[ORM\Column]
+    private ?float $longitude = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -162,6 +168,30 @@ class Estate
     public function setEstateCategory(?EstateCategory $estateCategory): self
     {
         $this->estateCategory = $estateCategory;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

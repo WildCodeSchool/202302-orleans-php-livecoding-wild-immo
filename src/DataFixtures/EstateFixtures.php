@@ -42,6 +42,8 @@ class EstateFixtures extends Fixture implements DependentFixtureInterface
                 ->setCity($faker->city())
                 ->setPrice($faker->numberBetween(10000, 2500000))
                 ->setImage($image)
+                ->setLatitude($faker->latitude(42, 52))
+                ->setLongitude($faker->longitude(-3, 7))
                 ->setEstateCategory($estateCategory);
             $manager->persist($estate);
         }

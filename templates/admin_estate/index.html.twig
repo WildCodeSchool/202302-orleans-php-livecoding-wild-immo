@@ -30,7 +30,7 @@
 						<td>{{ estate.price }}</td>
 						<td>{{ estate.surface }}</td>
 						<td>{{ estate.address }},
-							{{ estate.city }}</td>
+							{{ estate.city }} - ({{ estate.latitude }}, {{ estate.longitude }})</td>
 						<td>
 							<a class="btn btn-sm btn-outline-primary" href="{{ path('app_admin_estate_edit', {'id': estate.id}) }}">
 								{% include 'icons/pencil.svg' %}
