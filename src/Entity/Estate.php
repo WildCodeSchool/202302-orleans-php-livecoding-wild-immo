@@ -6,12 +6,13 @@ use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EstateRepository;
+use App\Service\Localizable;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EstateRepository::class)]
 #[Vich\Uploadable]
-class Estate
+class Estate implements Localizable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -194,5 +195,10 @@ class Estate
         $this->longitude = $longitude;
 
         return $this;
+    }
+
+    public function getSearchAddress(): string
+    {
+        return $this->getAddress() . ', ' . $this->getCity();
     }
 }

@@ -54,12 +54,20 @@ class AdminEstateController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_estate_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Estate $estate, EstateRepository $estateRepository): Response
-    {
+    public function edit(
+        Request $request,
+        Estate $estate,
+        EstateRepository $estateRepository,
+        Locator $locator
+    ): Response {
         $form = $this->createForm(EstateType::class, $estate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            [$longitude, $latitude] = $locator->getCoordinates($estate);
+            $estate->setLongitude($longitude);
+            $estate->setLatitude($latitude);
+
             $estateRepository->save($estate, true);
 
             return $this->redirectToRoute('app_admin_estate_index', [], Response::HTTP_SEE_OTHER);

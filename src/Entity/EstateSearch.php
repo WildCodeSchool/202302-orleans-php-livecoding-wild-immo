@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use App\Service\Localizable;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class EstateSearch
+class EstateSearch implements Localizable
 {
     private ?string $search = null;
 
@@ -14,6 +15,8 @@ class EstateSearch
 
     #[Assert\Positive()]
     private ?int $maxPrice = null;
+
+    private ?string $searchAddress = null;
 
     private ?EstateCategory $estateCategory = null;
 
@@ -87,5 +90,10 @@ class EstateSearch
         $this->estateCategory = $estateCategory;
 
         return $this;
+    }
+
+    public function getSearchAddress(): string
+    {
+        return $this->searchAddress;
     }
 }

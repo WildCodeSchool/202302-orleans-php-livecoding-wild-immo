@@ -13,11 +13,11 @@ class Locator
     {
     }
 
-    public function getCoordinates(Estate $estate): array
+    public function getCoordinates(Localizable $estate): array
     {
         $response = $this->client->request('GET', self::BASE_URL . '/search', [
             'query' => [
-                'q' => $estate->getAddress() . ', ' . $estate->getCity(),
+                'q' => $estate->getSearchAddress(),
             ]
         ]);
 
