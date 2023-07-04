@@ -3,38 +3,50 @@
 {% block title %}Nos biens!
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('estate') }}
+{% endblock %}
+
 {% block body %}
 	<main class="container">
 		<h1 class="mt-5 mb-3 text-primary">Nos biens</h1>
 
 		<div class="my-3">
-		
+
 			{{ form_start(form)}}
 			{{ form_widget(form)}}
 			<button class="btn btn-primary">Rechercher</button>
 			{{ form_end(form)}}
 		</div>
-		
-		<div class="row g-3">
-			{% for estate in estates %}
-				<div class="card mb-3 border border-0">
-					<div class="row g-0">
-						<div class="col-md-3">
-							<img src="{{ estate.image ? asset('uploads/estate/' ~ estate.image) : asset('build/images/estate.avif')}}" class="card-img-top object-fit-cover rounded-5" alt="">
-						</div>
-						<div class="col-md-4">
-							<div class="card-body">
-								<h2 class="card-title fw-bold fs-3">{{ estate.title|u.truncate(40, '...') }}</h2>
-								<p class="card-text fs-5">{{ estate.estateCategory.name }} - {{ estate.surface }}m<sup>2</sup>
-								</p>
-								<p class="card-text fs-5 text-secondary">{{ estate.city }}</p>
-								<p class="card-text fw-light">{{ estate.description }}</p>
-								<p class="card-text fw-bold fs-4 text-primary">{{ estate.price|number_format(0, '.', ' ') }}€</p>
+
+		<div class="row g-3 mt-5">
+			<div class="col-7">
+				{% for estate in estates %}
+					<div class="card mb-3 border border-0">
+						<div class="row g-0">
+							<div class="col-md-5">
+								<img src="{{ estate.image ? asset('uploads/estate/' ~ estate.image) : asset('build/images/estate.avif')}}" class="card-img-top object-fit-cover rounded-5" alt="">
+							</div>
+							<div class="col-md-7">
+								<div class="card-body">
+									<h2 class="card-title fw-bold fs-3">{{ estate.title|u.truncate(40, '...') }}</h2>
+									<p class="card-text fs-5">{{ estate.estateCategory.name }}
+										-
+										{{ estate.surface }}m<sup>2</sup>
+									</p>
+									<p class="card-text fs-5 text-secondary">{{ estate.city }}</p>
+									<p class="card-text fw-light">{{ estate.description }}</p>
+									<p class="card-text fw-bold fs-4 text-primary">{{ estate.price|number_format(0, '.', ' ') }}€</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
+			<div class="col-5 map">
+				map
+			</div>
 		</div>
 
 	</main>
