@@ -11,24 +11,50 @@
 
 
 {% block body %}
-	<main class="container">
+	<main class="container" {{ stimulus_controller('map') }}>
 		<h1 class="mt-5 mb-3 text-primary">Nos biens</h1>
 
 		<div class="my-3">
 
 			{{ form_start(form)}}
-			{{ form_widget(form)}}
+			{{ form_row(form.search)}}
+			<div class="row my-3">
+				<div class="col-md-6">
+					{{ form_label(form.minPrice)}}
+					{{ form_widget(form.minPrice)}}
+					{{ form_errors(form.minPrice)}}
+				</div>
+				<div class="col-md-6">
+					{{ form_label(form.maxPrice)}}
+					{{ form_widget(form.maxPrice)}}
+					{{ form_errors(form.maxPrice)}}
+				</div>
+			</div>
+			{{ form_row(form.estateCategory) }}
+			<div class="row my-3">
+				<div class="col-md-6">
+					{{ form_label(form.localization)}}
+					{{ form_widget(form.localization)}}
+					{{ form_errors(form.localization)}}
+				</div>
+				<div class="col-md-6">
+					{{ form_label(form.radius)}}
+					{{ form_widget(form.radius, {attr: {'data-action': 'map#radiusChange'}} )}}
+					<span id="radius" {{ stimulus_target('map', 'radius')}}>20km</span>
+					{{ form_errors(form.radius)}}
+				</div>
+			</div>
 			<button class="btn btn-primary">Rechercher</button>
 			{{ form_end(form)}}
 		</div>
 
-		<div class="row g-3 mt-5" {{ stimulus_controller('map') }}>
+		<div class="row g-3 mt-5">
 			<div class="col-7">
 				{% for estate in estates %}
 					<div class="card mb-3 border border-0" {{ stimulus_target('map', 'estate' )}} data-longitude="{{ estate.longitude }}" data-latitude="{{ estate.latitude }}">
 						<div class="row g-0">
 							<div class="col-md-5">
-								<img src="{{ estate.image ? asset('uploads/estate/' ~ estate.image) : asset('build/images/estate.avif')}}" class="card-img-top object-fit-cover rounded-5" alt="">
+								<img src="{{ estate.image ? asset('uploads/estate/' ~ estate.image) : asset('build/images/estate.avif')}}" class="card-img-top object-fit-cover h-100 rounded-5" alt="">
 							</div>
 							<div class="col-md-7">
 								<div class="card-body">
@@ -52,9 +78,3 @@
 	</main>
 {% endblock %}
 
-{% block javascripts %}
-	{{ parent()}}
-	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-
-{% endblock %}

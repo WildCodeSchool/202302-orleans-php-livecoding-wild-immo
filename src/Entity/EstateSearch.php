@@ -16,7 +16,10 @@ class EstateSearch implements Localizable
     #[Assert\Positive()]
     private ?int $maxPrice = null;
 
-    private ?string $searchAddress = null;
+    private ?string $localization = null;
+    private ?float $latitude = null;
+    private ?float $longitude = null;
+    private ?int $radius = 20;
 
     private ?EstateCategory $estateCategory = null;
 
@@ -92,8 +95,70 @@ class EstateSearch implements Localizable
         return $this;
     }
 
-    public function getSearchAddress(): string
+    public function setLocalization(?string $localization): self
     {
-        return $this->searchAddress;
+        $this->localization = $localization;
+
+        return $this;
+    }
+
+    public function getLocalization(): ?string
+    {
+        return $this->localization;
+    }
+
+
+    /**
+     * Get the value of latitude
+     */
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set the value of latitude
+     */
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of longitude
+     */
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set the value of longitude
+     */
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of radius
+     */
+    public function getRadius(): ?int
+    {
+        return $this->radius;
+    }
+
+    /**
+     * Set the value of radius
+     */
+    public function setRadius(?int $radius): self
+    {
+        $this->radius = $radius;
+
+        return $this;
     }
 }

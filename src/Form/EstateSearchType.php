@@ -11,7 +11,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EstateSearchType extends AbstractType
 {
@@ -29,9 +31,22 @@ class EstateSearchType extends AbstractType
             ->add('maxPrice', NumberType::class, [
                 'required' => false,
             ])
+            ->add('localization', TextType::class, [
+                'required' => false,
+                'label' => 'Ville'
+            ])
+            ->add('radius', RangeType::class, [
+                'required' => false,
+                'label' => 'Rayon',
+                'attr' => [
+                    'min' => 1,
+                    'max' => 300,
+                ],
+            ])
             ->add('estateCategory', EntityType::class, [
                 'class' => EstateCategory::class,
                 'choice_label' => 'name',
+                'required' => false,
                 'query_builder' => function (EntityRepository $entityRepository): QueryBuilder {
                     return $entityRepository->createQueryBuilder('ec')
                         ->orderBy('ec.name', 'ASC');

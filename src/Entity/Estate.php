@@ -197,7 +197,7 @@ class Estate implements Localizable
         return $this;
     }
 
-    public function getSearchAddress(): string
+    public function getLocalization(): ?string
     {
         return $this->getAddress() . ', ' . $this->getCity();
     }

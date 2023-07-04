@@ -4,5 +4,7 @@ namespace App\Service;
 
 interface Localizable
 {
-    public function getSearchAddress(): string;
+    public function getLocalization(): ?string;
+    public function getLongitude(): ?float;
+    public function getLatitude(): ?float;
 }

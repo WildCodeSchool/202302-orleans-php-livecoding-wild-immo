@@ -39,7 +39,7 @@ class AdminEstateController extends AbstractController
             return $this->redirectToRoute('app_admin_estate_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin_estate/new.html.twig', [
+        return $this->render('admin_estate/new.html.twig', [
             'estate' => $estate,
             'form' => $form,
         ]);
