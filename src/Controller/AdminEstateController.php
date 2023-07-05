@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Entity\Estate;
 use App\Form\EstateType;
 use App\Service\Locator;
@@ -30,10 +31,13 @@ class AdminEstateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            [$longitude, $latitude] = $locator->getCoordinates($estate);
-            $estate->setLongitude($longitude);
-            $estate->setLatitude($latitude);
-
+            try {
+                [$longitude, $latitude] = $locator->getCoordinates($estate);
+                $estate->setLongitude($longitude);
+                $estate->setLatitude($latitude);
+            } catch (Exception $e) {
+                $this->addFlash('danger', $e->getMessage());
+            }
             $estateRepository->save($estate, true);
 
             return $this->redirectToRoute('app_admin_estate_index', [], Response::HTTP_SEE_OTHER);
@@ -64,16 +68,21 @@ class AdminEstateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            [$longitude, $latitude] = $locator->getCoordinates($estate);
-            $estate->setLongitude($longitude);
-            $estate->setLatitude($latitude);
+            try {
+                [$longitude, $latitude] = $locator->getCoordinates($estate);
+                $estate->setLongitude($longitude);
+                $estate->setLatitude($latitude);
+            } catch (Exception $e) {
+                $this->addFlash('danger', $e->getMessage());
+                $estate->setLongitude(null)->setLatitude(null);
+            }
 
             $estateRepository->save($estate, true);
 
             return $this->redirectToRoute('app_admin_estate_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin_estate/edit.html.twig', [
+        return $this->render('admin_estate/edit.html.twig', [
             'estate' => $estate,
             'form' => $form,
         ]);

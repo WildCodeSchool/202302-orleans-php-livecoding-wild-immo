@@ -51,7 +51,9 @@ class EstateType extends AbstractType
                 'label' => 'Ville'
             ])
             ->add('description', TextareaType::class)
-            ->add('imageFile', VichFileType::class);
+            ->add('imageFile', VichFileType::class, [
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

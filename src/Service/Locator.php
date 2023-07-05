@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Estate;
+use Exception;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Locator
@@ -21,11 +22,15 @@ class Locator
             ]
         ]);
 
-        if ($response->getStatusCode() === 200) {
-            $content = $response->toArray();
-            return $content['features'][0]['geometry']['coordinates'];
+        if ($response->getStatusCode() !== 200) {
+            throw new Exception('Problème de récupération de l\'adresse, veuillez rééssayer');
         }
 
-        return [];
+        $content = $response->toArray();
+        if (!isset($content['features'][0]['geometry']['coordinates'])) {
+            throw new Exception('Adresse inconnue, veuillez la vérifier ou la préciser');
+        }
+
+        return $content['features'][0]['geometry']['coordinates'];
     }
 }

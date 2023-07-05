@@ -50,10 +50,10 @@ class Estate implements Localizable
     #[ORM\ManyToOne(inversedBy: 'estates')]
     private ?EstateCategory $estateCategory = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $latitude = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $longitude = null;
 
     public function getId(): ?int
@@ -66,7 +66,7 @@ class Estate implements Localizable
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -78,7 +78,7 @@ class Estate implements Localizable
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(?int $price): self
     {
         $this->price = $price;
 
@@ -90,7 +90,7 @@ class Estate implements Localizable
         return $this->surface;
     }
 
-    public function setSurface(int $surface): self
+    public function setSurface(?int $surface): self
     {
         $this->surface = $surface;
 
@@ -102,7 +102,7 @@ class Estate implements Localizable
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -114,7 +114,7 @@ class Estate implements Localizable
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
 
@@ -126,7 +126,7 @@ class Estate implements Localizable
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -178,7 +178,7 @@ class Estate implements Localizable
         return $this->latitude;
     }
 
-    public function setLatitude(float $latitude): self
+    public function setLatitude(?float $latitude): self
     {
         $this->latitude = $latitude;
 
@@ -190,7 +190,7 @@ class Estate implements Localizable
         return $this->longitude;
     }
 
-    public function setLongitude(float $longitude): self
+    public function setLongitude(?float $longitude): self
     {
         $this->longitude = $longitude;
 

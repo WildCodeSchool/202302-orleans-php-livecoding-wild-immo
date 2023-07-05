@@ -7,6 +7,7 @@ use App\Form\EstateSearchType;
 use App\Repository\EstateRepository;
 use App\Service\DistanceCalculator;
 use App\Service\Locator;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,17 +29,21 @@ class EstateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $estates = $estateRepository->searchEstate($estateSearch);
             if ($estateSearch->getLocalization()) {
-                [$longitude, $latitude]  = $locator->getCoordinates($estateSearch);
-                $estateSearch->setLongitude($longitude)->setLatitude($latitude);
+                try {
+                    [$longitude, $latitude]  = $locator->getCoordinates($estateSearch);
+                    $estateSearch->setLongitude($longitude)->setLatitude($latitude);
 
-                $estates = array_filter(
-                    $estates,
-                    fn ($estate) => $distanceCalculator->isClose(
-                        $estateSearch,
-                        $estate,
-                        $estateSearch->getRadius()
-                    )
-                );
+                    $estates = array_filter(
+                        $estates,
+                        fn ($estate) => $distanceCalculator->isClose(
+                            $estateSearch,
+                            $estate,
+                            $estateSearch->getRadius()
+                        )
+                    );
+                } catch (Exception $e) {
+                    $this->addFlash('danger', $e->getMessage());
+                }
             }
         } else {
             $estates = $estateRepository->findAll();
