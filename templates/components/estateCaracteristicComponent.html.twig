@@ -1,0 +1,41 @@
+<div {{ attributes }}>
+	{{ form_start(form) }}
+	{{ form_row(form.estateCategory) }}
+	{{ form_row(form.title) }}
+	{{ form_row(form.price) }}
+	{{ form_row(form.surface) }}
+	{{ form_row(form.address) }}
+	{{ form_row(form.city) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.imageFile) }}
+
+	<table class="table table-borderless formformform-no-mb">
+		<thead>
+			<tr>
+				<td>Caractéristique</td>
+				<td>Valeur</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for estateCaracteristicForm in form.estateCaracteristics %}
+				<tr>
+					<td>
+						{{ form_widget(estateCaracteristicForm.caracteristic) }}
+					</td>
+					<td>
+						{{ form_widget(estateCaracteristicForm.value) }}
+					</td>
+					<td>
+						{{ form_row(estateCaracteristicForm.vars.button_delete, { label: 'supprimer X', attr: { class: 'btn btn-outline-danger' } }) }}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	{{ form_widget(form.estateCaracteristics.vars.button_add, { label: '+ Add Item', attr: { class: 'btn btn-outline-primary' } }) }}
+
+	<button class="btn btn-primary">{{ button_label|default('Ajouter le bien') }}</button>
+	{{ form_end(form) }}
+</div>
+	

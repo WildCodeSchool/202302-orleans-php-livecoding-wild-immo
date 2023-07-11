@@ -11,6 +11,7 @@ use App\Repository\EstateRepository;
 use App\Service\Localizable;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EstateRepository::class)]
 #[Vich\Uploadable]
@@ -25,9 +26,11 @@ class Estate implements Localizable
     private ?string $title = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
     private ?int $price = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
     private ?int $surface = null;
 
     #[ORM\Column(length: 255)]
@@ -58,7 +61,8 @@ class Estate implements Localizable
     #[ORM\Column(nullable: true)]
     private ?float $longitude = null;
 
-    #[ORM\OneToMany(mappedBy: 'estate', targetEntity: EstateCaracteristic::class)]
+    #[ORM\OneToMany(mappedBy: 'estate', targetEntity: EstateCaracteristic::class, cascade:["persist"])]
+    #[Assert\Valid()]
     private Collection $estateCaracteristics;
 
     public function __construct()

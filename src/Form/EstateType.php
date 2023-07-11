@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -57,8 +58,8 @@ class EstateType extends AbstractType
             ->add('imageFile', VichFileType::class, [
                 'required' => false,
             ])
-            ->add('estateCaracteristics', CollectionType::class, [
-                'entry_type' => EstateCaracteristicType::class
+            ->add('estateCaracteristics', LiveCollectionType::class, [
+                'entry_type' => EstateCaracteristicType::class,
             ]);
     }
 

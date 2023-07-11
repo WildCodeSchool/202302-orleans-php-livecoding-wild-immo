@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EstateCaracteristicRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EstateCaracteristicRepository::class)]
 class EstateCaracteristic
@@ -14,6 +15,7 @@ class EstateCaracteristic
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
     private ?int $value = null;
 
     #[ORM\ManyToOne(inversedBy: 'estateCaracteristics')]
