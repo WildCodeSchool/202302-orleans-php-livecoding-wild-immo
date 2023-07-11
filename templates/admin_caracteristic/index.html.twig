@@ -1,0 +1,37 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title %}Caracteristic index
+{% endblock %}
+
+{% block body %}
+	<main class="container-fluid">
+		<h1>Caracteristic index</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Icone</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for caracteristic in caracteristics %}
+					<tr>
+						<td>{{ caracteristic.name }}</td>
+						<td>{{ caracteristic.icon|raw }}</td>
+						<td>
+							<a class="btn btn-outline-primary" href="{{ path('app_admin_caracteristic_edit', {'id': caracteristic.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">Pas de caracteristique</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a class="btn btn-primary" href="{{ path('app_admin_caracteristic_new') }}">Ajouter une caractéristique</a>
+	</main>
+{% endblock %}
