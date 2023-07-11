@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EstateRepository;
@@ -55,6 +57,14 @@ class Estate implements Localizable
 
     #[ORM\Column(nullable: true)]
     private ?float $longitude = null;
+
+    #[ORM\OneToMany(mappedBy: 'estate', targetEntity: EstateCaracteristic::class)]
+    private Collection $estateCaracteristics;
+
+    public function __construct()
+    {
+        $this->estateCaracteristics = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -200,5 +210,35 @@ class Estate implements Localizable
     public function getLocalization(): ?string
     {
         return $this->getAddress() . ', ' . $this->getCity();
+    }
+
+    /**
+     * @return Collection<int, EstateCaracteristic>
+     */
+    public function getEstateCaracteristics(): Collection
+    {
+        return $this->estateCaracteristics;
+    }
+
+    public function addEstateCaracteristic(EstateCaracteristic $estateCaracteristic): self
+    {
+        if (!$this->estateCaracteristics->contains($estateCaracteristic)) {
+            $this->estateCaracteristics->add($estateCaracteristic);
+            $estateCaracteristic->setEstate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstateCaracteristic(EstateCaracteristic $estateCaracteristic): self
+    {
+        if ($this->estateCaracteristics->removeElement($estateCaracteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($estateCaracteristic->getEstate() === $this) {
+                $estateCaracteristic->setEstate(null);
+            }
+        }
+
+        return $this;
     }
 }

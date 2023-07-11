@@ -20,6 +20,7 @@
 					<th>Adresse</th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,7 +31,16 @@
 						<td>{{ estate.price }}</td>
 						<td>{{ estate.surface }}</td>
 						<td>{{ estate.address }},
-							{{ estate.city }} - ({{ estate.latitude }}, {{ estate.longitude }})</td>
+							{{ estate.city }}
+						</td>
+						<td>
+							<div class="d-flex g-3 align-items-center">
+								{% for estateCaracteristic in estate.estateCaracteristics %}
+									{{ estateCaracteristic.caracteristic.icon|raw }}
+									<span class="badge bg-secondary me-2">{{ estateCaracteristic.value }}</span>
+								{% endfor %}
+							</div>
+						</td>
 						<td>
 							<a class="btn btn-sm btn-outline-primary" href="{{ path('app_admin_estate_edit', {'id': estate.id}) }}">
 								{% include 'icons/pencil.svg' %}

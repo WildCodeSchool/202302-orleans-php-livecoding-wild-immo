@@ -18,10 +18,14 @@ class CaracteristicFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $increment = 0;
         foreach (self::CARACTERISTICS as $name => $icon) {
             $caracteristic = new Caracteristic();
             $caracteristic->setName($name)->setIcon($icon);
+            $this->addReference('caracteristic_' . $increment, $caracteristic);
+
             $manager->persist($caracteristic);
+            $increment++;
         }
 
         $manager->flush();

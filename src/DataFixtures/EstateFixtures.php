@@ -33,7 +33,9 @@ class EstateFixtures extends Fixture implements DependentFixtureInterface
                 'public/uploads/estate/' . $image
             );
 
-            $estateCategory = $this->getReference('estate_' . rand(0, count(EstateCategoryFixtures::CATEGORIES) - 1));
+            $estateCategory = $this->getReference(
+                'estate_category_' . rand(0, count(EstateCategoryFixtures::CATEGORIES) - 1)
+            );
             $estate
                 ->setTitle($faker->randomElement(self::TITLES))
                 ->setDescription($faker->text())
@@ -45,6 +47,7 @@ class EstateFixtures extends Fixture implements DependentFixtureInterface
                 ->setLatitude($faker->latitude(42, 52))
                 ->setLongitude($faker->longitude(-3, 7))
                 ->setEstateCategory($estateCategory);
+            $this->addReference('estate_' . $i, $estate);
             $manager->persist($estate);
         }
 

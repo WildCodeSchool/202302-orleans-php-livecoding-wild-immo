@@ -18,7 +18,7 @@ class EstateCategoryFixtures extends Fixture
             $estateCategory = new EstateCategory();
             $estateCategory->setName($category);
             $manager->persist($estateCategory);
-            $this->addReference('estate_' . $key, $estateCategory);
+            $this->addReference('estate_category_' . $key, $estateCategory);
         }
 
         $manager->flush();
